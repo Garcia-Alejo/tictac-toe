@@ -2,7 +2,7 @@ let jugadorUno = true;
 let celdas = document.getElementsByClassName("cell");
 const botonReiniciar = document.querySelector('#reiniciarBnt');
 botonReiniciar.addEventListener('click', reiniciar);
-
+estadoJuego=true;
 
 for (let index = 0; index < celdas.length; index++) {
    celdas[index].addEventListener("click", adentroCelda);
@@ -13,11 +13,12 @@ function reiniciar(){
       celdas[i].innerHTML = "";
    }
    showWinner("")
+   estadoJuego=true;
 }
 
 function adentroCelda(e) {
    let cellValue = e.target.innerHTML;/**se fija que hay en la celdad onde se toco si hay algo no hace nada y si no hay pone x / o */
-   if (!cellValue.length) {
+   if (!cellValue.length && estadoJuego) {
       e.target.innerHTML = jugadorUno ? "x" : "o";
       jugadorUno = !jugadorUno;
 
@@ -40,6 +41,7 @@ function ganar(c1, c2, c3) {
    ) {
       showWinner(celdas[c1].innerHTML + " win");
    }
+      estadoJuego=false;
 }
 
 function showWinner(player) {
